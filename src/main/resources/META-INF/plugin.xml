@@ -1,18 +1,15 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.jasonltang.codenotes</id>
-    <name>IntelliJ Platform Plugin code-notes</name>
-    <vendor>jasonltang</vendor>
-
+    <id>my.plugin.id</id>
+    <name>Code Notes</name>
+    <vendor>Jason Tang</vendor>
     <depends>com.intellij.modules.platform</depends>
-
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.jasonltang.codenotes.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.jasonltang.codenotes.services.MyProjectService"/>
+        <toolWindow factoryClass="NotesWindow" id="Code Notes"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.jasonltang.codenotes.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="com.custom.action.AddNoteAction" class="AddNoteAction" text="Add Note...">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
