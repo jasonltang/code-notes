@@ -1,16 +1,10 @@
 import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.event.DocumentEvent;
-import com.intellij.openapi.editor.event.DocumentListener;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.event.TableModelListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TableModel implements javax.swing.table.TableModel {
     public static final String TABLE_MODEL_KEY = "CodeNotes.TableModel";
@@ -33,15 +27,17 @@ public class TableModel implements javax.swing.table.TableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Nls
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0)
-            return "Path";
+            return "Folder";
         if (columnIndex == 1)
+            return "File";
+        if (columnIndex == 2)
             return "Note";
         return null;
     }
@@ -60,9 +56,17 @@ public class TableModel implements javax.swing.table.TableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         var action = listItems.get(rowIndex);
         if (columnIndex == 0) {
-            return action.getPath();
+            var parts = action.getPath().split(",");
+            var fullFileName = parts[0];
+            var splitFullFileName = fullFileName.split("/");
+            var pathExcludingFileName = Arrays.copyOf(splitFullFileName, splitFullFileName.length - 1);
+            return String.join("/", pathExcludingFileName);
         }
         if (columnIndex == 1) {
+            var parts = action.getPath().split("/");
+            return parts[parts.length-1];
+        }
+        if (columnIndex == 2) {
             return action.getNote();
         }
         return listItems.get(rowIndex);

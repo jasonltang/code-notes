@@ -43,13 +43,12 @@ public class ClickableListItem {
                 CursorLine += newLinesAdded; // JT: Add check if cursor is above bookmark
                 GoToNoteAction.CursorLine += newLinesAdded;
                 System.out.println("Cursor line changed by " + newLinesAdded);
-                var a = 1;
             }
         });
     }
 
     public String getPath() {
-        return String.format("File %s, Line %d, Column %d", FilePath, CursorLine+1, CursorColumn+1);
+        return String.format("%s, Line %d, Column %d", FilePath, CursorLine+1, CursorColumn+1);
     }
 
     public String getNote() {

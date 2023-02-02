@@ -11,7 +11,6 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
